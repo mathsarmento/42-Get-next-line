@@ -70,8 +70,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void	*mem;
-	int		full_size;
+	void			*mem;
+	unsigned int	full_size;
 	unsigned long	i;
 
 	full_size = count * size;
