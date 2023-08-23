@@ -6,7 +6,7 @@
 /*   By: msarment <msarment@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:40:50 by msarment          #+#    #+#             */
-/*   Updated: 2023/08/23 19:57:50 by msarment         ###   ########.fr       */
+/*   Updated: 2023/08/23 20:26:24 by msarment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static char *readfile(char **line, char **save, int fd)
 		// *save = ft_calloc(BUFFER_SIZE + 1, 1);
 		free(aux_line);
 		num = read(fd, *save, BUFFER_SIZE);
+		if (line[0][ft_strlen(*line) - 1] == '\0')
+			free(save);
 	}
 	return (*line);
 }
@@ -107,18 +109,21 @@ static char	*savecpy(char **save)
 int	main(void)
 {
 	char *str;
-	char *str2;
-	char *str3;
+	// char *str2;
+	// char *str3;
 
 	int fd;
 
 	fd = open("teste", O_RDONLY);
 	str = get_next_line(fd);
-	str2 = get_next_line(fd);
-	str3 = get_next_line(fd);
+	// str2 = get_next_line(fd);
+	// str3 = get_next_line(fd);
 	printf("\n\nFIRST LINE => %s", str);
-	printf("2 LINE => %s", str2);
-	printf("3 LINE => %s\n", str3);
+	// printf("2 LINE => %s", str2);
+	// printf("3 LINE => %s\n", str3);
+	free(str);
+	// free(str2);
+	// free(str3);
 	close (fd);
 }
 
