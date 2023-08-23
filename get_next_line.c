@@ -24,6 +24,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	printf("ENTROU NA FUNÇÃO GNL\n");
 	line = readfile(line, save, fd);
+	printf("SAIU DA FUNC READ LINE\n");
+	return (line);
 }
 
 static char *readfile(char *line, char *save, int fd)
@@ -45,17 +47,21 @@ static char *readfile(char *line, char *save, int fd)
 	}
 	save = ft_calloc(BUFFER_SIZE + 1, 1);
 	num = read(fd, save, BUFFER_SIZE);
-	while (num && (line[ft_strlen(line)] != '\n' || !line))
+	while (num)
 	{
-		if (!line)
+		if(!line)
 			line = ft_calloc(1, 1);
+		printf("ENTROU NO WHILE\n");
 		aux_line = copyread(line, save);
 		free(line);
-		free(save);
 		line = ft_substr(aux_line, 0, ft_strlen(aux_line));
+		if (line[ft_strlen(line) - 1] != '\n')
+			break;
+		free(save);
 		free(aux_line);
 		num = read(fd, save, BUFFER_SIZE);
 	}
+	printf("NÃO ENTROU NO WHILE\n");
 	return (line);
 }
 
@@ -76,8 +82,11 @@ static char	*copyread(char *line, char *save)
 		}
 		findbackspace++;
 	}
-	aux_cpy = ft_substr(save, 0, findbackspace);
+	printf("ACHOU O \\n \n");
+	aux_cpy = ft_substr(save, 0, findbackspace + 1);
+	printf("AUX CPY => %s", aux_cpy);
 	cpy = ft_strjoin(line, aux_cpy);
+	printf("CPY => %s", cpy);
 	free (aux_cpy);
 	return (cpy);
 }
@@ -85,11 +94,14 @@ static char	*copyread(char *line, char *save)
 int	main(void)
 {
 	char *str;
+	char *str2;
 	int fd;
 
 	fd = open("teste", O_RDONLY);
 	str = get_next_line(fd);
-	printf("%s", str);
+	str2 = get_next_line(fd);
+	printf("\n\nFIRST LINE => %s\n\n", str);
+	printf("2 LINE => %s\n\n", str2);
 	close (fd);
 }
 
