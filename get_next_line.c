@@ -21,15 +21,31 @@ char	*get_next_line(int fd)
 	static char	*save;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
 		return (NULL);
 	line = savecpy(&save);
 	if(line)
 	{
-		if(line[ft_strlen(line) - 1] == '\n')
-			return (line);
+		if (ft_strlen(line))
+		{
+			if(line[ft_strlen(line) - 1] == '\n')
+				return (line);
+		}
 	}
 	line = readfile(&line, &save, fd);
+	if (line)
+	{
+		if(line[0] == '\0')
+		{
+			if (save)
+			{
+				free(save);
+				save = NULL;
+			}
+			free(line);
+			return(NULL);
+		}
+	}
 	return (line);
 }
 
@@ -114,22 +130,3 @@ static char	*savecpy(char **save)
 	return(line);
 }
 
-int	main(void)
-{
-	char *str;
-	char *str2;
-	char *str3;
-	int fd;
-
-	fd = open("teste", O_RDONLY);
-	str = get_next_line(fd);
-	str2 = get_next_line(fd);
-	str3 = get_next_line(fd);
-	printf("\nFIRST LINE => %s", str);
-	printf("2 LINE => %s", str2);
-	printf("3 LINE => %s\n", str3);
-	free(str);
-	free(str2);
-	free(str3);
-	close (fd);
-}
