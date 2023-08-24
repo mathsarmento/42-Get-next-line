@@ -21,7 +21,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-// # define BUFFER_SIZE 100
+# define BUFFER_SIZE 100
 char	*get_next_line(int fd);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_calloc(size_t count, size_t size);

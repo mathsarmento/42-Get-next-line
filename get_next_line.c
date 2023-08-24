@@ -95,6 +95,7 @@ static char	*savecpy(char **save)
 	{
 		aux_save = ft_substr(*save, 0, ft_strlen(*save));
 		free(*save);
+		*save = NULL;
 		while (aux_save[cont] != '\n' && aux_save[cont])
 			cont++;
 		if (!aux_save[cont])
@@ -113,61 +114,22 @@ static char	*savecpy(char **save)
 	return(line);
 }
 
-// int	main(void)
-// {
-// 	char *str;
-// 	char *str2;
-// 	char *str3;
+int	main(void)
+{
+	char *str;
+	char *str2;
+	char *str3;
+	int fd;
 
-// 	int fd;
-
-// 	fd = open("teste", O_RDONLY);
-// 	str = get_next_line(fd);
-// 	str2 = get_next_line(fd);
-// 	str3 = get_next_line(fd);
-// 	printf("\n\nFIRST LINE => %s", str);
-// 	printf("2 LINE => %s", str2);
-// 	printf("3 LINE => %s\n", str3);
-// 	free(str);
-// 	free(str2);
-// 	free(str3);
-// 	close (fd);
-// }
-
-// void readfile(char *str, char *save, int fd)
-// {
-// 	size_t numRead;
-// 	size_t	*sumloc;
-// 	char	*readSave;
-
-// 	while (sumloc < __INT_MAX__)
-// 	{
-// 		readSave = malloc(BUFFER_SIZE);
-// 		numRead = read(fd, readSave, BUFFER_SIZE);
-// 		if (numRead != BUFFER_SIZE)
-// 			//CHEGOU NO FINAL DO READ
-// 		if (checkread(readSave, &sumloc))
-// 		{
-
-// 		}
-// 		free(readSave);
-		
-
-
-// 	}
-// }
-
-// int	checkread(char *readSave, size_t *sumloc)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (i < BUFFER_SIZE)
-// 	{
-// 		if (reaSave[i] == '\n')
-// 			return (0);
-// 		i++;
-// 	}
-// 	return (1);
-// }
-
+	fd = open("teste", O_RDONLY);
+	str = get_next_line(fd);
+	str2 = get_next_line(fd);
+	str3 = get_next_line(fd);
+	printf("\nFIRST LINE => %s", str);
+	printf("2 LINE => %s", str2);
+	printf("3 LINE => %s\n", str3);
+	free(str);
+	free(str2);
+	free(str3);
+	close (fd);
+}
