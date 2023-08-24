@@ -18,7 +18,7 @@ static char	*savecpy(char **save);
 
 char	*get_next_line(int fd)
 {
-	static char	*save; // salvar a string 
+	static char	*save;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
@@ -48,16 +48,13 @@ static char *readfile(char **line, char **save, int fd)
 		aux_line = copyread(*line, save);
 		free(*line);
 		*line = ft_substr(aux_line, 0, ft_strlen(aux_line));
-		if (line[0][ft_strlen(*line) - 1] == '\n')
-			break;
-		// printf("\nFREE NO SAVE\n\n");
-		// free(*save);
-		// *save = ft_calloc(BUFFER_SIZE + 1, 1);
 		free(aux_line);
+		if (line[0][ft_strlen(*line) - 1] == '\n')
+			return (*line);
 		num = read(fd, *save, BUFFER_SIZE);
-		if (line[0][ft_strlen(*line) - 1] == '\0')
-			free(save);
 	}
+	free(*save);
+	*save = NULL;
 	return (*line);
 }
 
@@ -87,45 +84,55 @@ static char	*copyread(char *line, char **save)
 static char	*savecpy(char **save)
 {
 	size_t	i;
+	size_t	cont;
 	char	*line;
+	char	*aux_save;
 
 	line = NULL;
 	i = 0;
-
+	cont = 0;
 	if (*save)
 	{
-		while (**save != '\n' && **save)
-			*save += 1;
-		*save += 1;
-		if (!**save)
+		aux_save = ft_substr(*save, 0, ft_strlen(*save));
+		free(*save);
+		while (aux_save[cont] != '\n' && aux_save[cont])
+			cont++;
+		if (!aux_save[cont])
+		{
+			free(aux_save);
 			return (NULL);
-		while (save[0][i] != '\n' && save[0][i])
+		}
+		cont++;
+		while (aux_save[i + cont] != '\n' && aux_save[i + cont])
 			i++;
-		line = ft_substr(*save, 0, i + 1);
+		line = ft_substr(aux_save, cont, i + 1);
+		if (aux_save[i + cont] == '\n')
+			*save = ft_substr(aux_save, i + cont, ft_strlen(aux_save) - i - cont);
+		free(aux_save);
 	}
 	return(line);
 }
 
-int	main(void)
-{
-	char *str;
-	// char *str2;
-	// char *str3;
+// int	main(void)
+// {
+// 	char *str;
+// 	char *str2;
+// 	char *str3;
 
-	int fd;
+// 	int fd;
 
-	fd = open("teste", O_RDONLY);
-	str = get_next_line(fd);
-	// str2 = get_next_line(fd);
-	// str3 = get_next_line(fd);
-	printf("\n\nFIRST LINE => %s", str);
-	// printf("2 LINE => %s", str2);
-	// printf("3 LINE => %s\n", str3);
-	free(str);
-	// free(str2);
-	// free(str3);
-	close (fd);
-}
+// 	fd = open("teste", O_RDONLY);
+// 	str = get_next_line(fd);
+// 	str2 = get_next_line(fd);
+// 	str3 = get_next_line(fd);
+// 	printf("\n\nFIRST LINE => %s", str);
+// 	printf("2 LINE => %s", str2);
+// 	printf("3 LINE => %s\n", str3);
+// 	free(str);
+// 	free(str2);
+// 	free(str3);
+// 	close (fd);
+// }
 
 // void readfile(char *str, char *save, int fd)
 // {
