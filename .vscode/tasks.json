@@ -9,6 +9,7 @@
                 "-g",
                 "${workspaceFolder}/get_next_line.c",
                 "${workspaceFolder}/get_next_line_utils.c",
+                "${workspaceFolder}/main.c",
                 "-o",
                 "${workspaceFolder}/a.out"
             ],

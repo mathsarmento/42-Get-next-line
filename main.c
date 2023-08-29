@@ -43,23 +43,5 @@ int	main(void)
 		free(str);
 		i++;
 	}
-	printf("\n");
-	if (BUFFER_SIZE > 100) {
-		char *temp;
-		do {
-			temp = get_next_line(fd);
-			free(temp);
-		} while (temp != NULL);
-	}
-	close(fd);
-	fd = open("teste", O_RDONLY);
-	i = 0;
-	while(i < 4)
-	{
-		str = get_next_line(fd);
-		printf("%s",str);
-		free(str);
-		i++;
-	}
 	close(fd);
 }

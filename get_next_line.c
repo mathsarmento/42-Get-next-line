@@ -22,7 +22,14 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
+	{
+		if (save)
+		{
+			free(save);
+			save = NULL;
+		}
 		return (NULL);
+	}
 	line = savecpy(&save);
 	if(line)
 	{
@@ -37,11 +44,6 @@ char	*get_next_line(int fd)
 	{
 		if(line[0] == '\0')
 		{
-			if (save)
-			{
-				free(save);
-				save = NULL;
-			}
 			free(line);
 			return(NULL);
 		}
