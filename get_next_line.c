@@ -6,7 +6,7 @@
 /*   By: msarment <msarment@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:40:50 by msarment          #+#    #+#             */
-/*   Updated: 2023/08/23 20:26:24 by msarment         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:01:35 by msarment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	line = savecpy(&save);
-	if(line)
-	{
-		if (ft_strlen(line))
-		{
-			if(line[ft_strlen(line) - 1] == '\n')
-				return (line);
-		}
-	}
+	if (ft_strlen(line, 2))
+		return (line);
 	line = readfile(&line, &save, fd);
 	if (line)
 	{
@@ -65,9 +59,9 @@ static char *readfile(char **line, char **save, int fd)
 			*line = ft_calloc(1, 1);
 		aux_line = copyread(*line, save);
 		free(*line);
-		*line = ft_substr(aux_line, 0, ft_strlen(aux_line));
+		*line = ft_substr(aux_line, 0, ft_strlen(aux_line, 1));
 		free(aux_line);
-		if (line[0][ft_strlen(*line) - 1] == '\n')
+		if (line[0][ft_strlen(*line, 1) - 1] == '\n')
 			return (*line);
 		num = read(fd, *save, BUFFER_SIZE);
 	}
@@ -111,7 +105,7 @@ static char	*savecpy(char **save)
 	cont = 0;
 	if (*save)
 	{
-		aux_save = ft_substr(*save, 0, ft_strlen(*save));
+		aux_save = ft_substr(*save, 0, ft_strlen(*save, 1));
 		free(*save);
 		*save = NULL;
 		while (aux_save[cont] != '\n' && aux_save[cont])
@@ -126,7 +120,7 @@ static char	*savecpy(char **save)
 			i++;
 		line = ft_substr(aux_save, cont, i + 1);
 		if (aux_save[i + cont] == '\n')
-			*save = ft_substr(aux_save, i + cont, ft_strlen(aux_save) - i - cont);
+			*save = ft_substr(aux_save, i + cont, ft_strlen(aux_save, 1) - i - cont);
 		free(aux_save);
 	}
 	return(line);

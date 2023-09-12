@@ -9,7 +9,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	j;
 
 	i = 0;
-	len = ft_strlen (s1) + ft_strlen (s2);
+	len = ft_strlen (s1, 1) + ft_strlen (s2, 1);
 	str = (char *) malloc (sizeof (char) * (len + 1));
 	if (str == NULL)
 		return (NULL);
@@ -29,11 +29,24 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s, int type)
 {
 	size_t	i;
 
 	i = 0;
+	if(type == 2)
+	{
+		if (s)
+		{
+			while (s[i] != '\0')
+			{
+				if(s[i] == '\n')
+					return (1);
+				i++;
+			}
+		}
+		return (0);
+	}
 	while (s[i] != '\0')
 		i++;
 	return (i);
@@ -46,7 +59,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	size;
 	size_t	i;
 
-	strlen = ft_strlen(s);
+	strlen = ft_strlen(s, 1);
 	if (start >= strlen)
 		size = 0;
 	else if (len >= strlen)
