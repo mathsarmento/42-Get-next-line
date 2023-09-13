@@ -97,20 +97,17 @@ static char	*savecpy(char **save)
 {
 	char	*line;
 	char	*aux_save;
-	// O SAVE JA VEM COM UM \N QUE JA FOI COPIADO
-	//existem duas situações -> ou o save tem \0 (significa que acabou o save)
-	// ou -> tem \n e ainda tem mais coisa no save
 	line = NULL;
-	if (ft_strlen(*save, 3)) // aqui não entra se não ter save
+	if (ft_strlen(*save, 3))
 	{
 		aux_save = ft_substr(*save, ft_strlen(*save, 2), ft_strlen(*save, 1));
 		free (*save);
-		if(ft_strlen(aux_save, 1) == ft_strlen(aux_save, 3) - 1) // final save
+		if(ft_strlen(aux_save, 1) == ft_strlen(aux_save, 3) - 1)
 		{
 			line = ft_substr(aux_save, 0, ft_strlen(aux_save, 1));
 			*save = NULL;
 		}
-		else if (ft_strlen(aux_save, 1) > ft_strlen(aux_save, 3) - 1) // existe um \n
+		else if (ft_strlen(aux_save, 1) > ft_strlen(aux_save, 3) - 1)
 		{
 			line = ft_substr(aux_save, 0, ft_strlen(aux_save, 3));
 			*save = ft_substr(aux_save, 0, ft_strlen(aux_save, 1));
@@ -119,25 +116,3 @@ static char	*savecpy(char **save)
 	}
 	return(line);
 }
-
-
-	// if (*save)
-	// {
-	// 	aux_save = ft_substr(*save, 0, ft_strlen(*save, 1));
-	// 	free(*save);
-	// 	*save = NULL;
-	// 	while (aux_save[cont] != '\n' && aux_save[cont])
-	// 		cont++;
-	// 	if (!aux_save[cont])
-	// 	{
-	// 		free(aux_save);
-	// 		return (NULL);
-	// 	}
-	// 	cont++;
-	// 	while (aux_save[i + cont] != '\n' && aux_save[i + cont])
-	// 		i++;
-	// 	line = ft_substr(aux_save, cont, i + 1);
-	// 	if (aux_save[i + cont] == '\n')
-	// 		*save = ft_substr(aux_save, i + cont, ft_strlen(aux_save, 1) - i - cont);
-	// 	free(aux_save);
-	// }
