@@ -6,7 +6,7 @@
 /*   By: msarment <msarment@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:13:11 by msarment          #+#    #+#             */
-/*   Updated: 2023/09/12 18:19:30 by msarment         ###   ########.fr       */
+/*   Updated: 2023/09/13 16:15:03 by msarment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ size_t	ft_strlen(const char *s, int type)
 	size_t	i;
 
 	i = 0;
-	if(type == 2 || type == 3)
+	if (type == 2 || type == 3)
 	{
 		if (s)
 		{

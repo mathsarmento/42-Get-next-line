@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msarment <msarment@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/13 16:13:50 by msarment          #+#    #+#             */
+/*   Updated: 2023/09/13 16:14:02 by msarment         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -33,7 +45,7 @@ size_t	ft_strlen(const char *s, int type)
 	size_t	i;
 
 	i = 0;
-	if(type == 2 || type == 3)
+	if (type == 2 || type == 3)
 	{
 		if (s)
 		{

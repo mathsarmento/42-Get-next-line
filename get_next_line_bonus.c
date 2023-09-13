@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msarment <msarment@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/13 16:11:01 by msarment          #+#    #+#             */
+/*   Updated: 2023/09/13 16:11:32 by msarment         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
@@ -20,10 +32,10 @@ char	*get_next_line(int fd)
 	line = readfile(&line, &save[fd], fd);
 	if (line)
 	{
-		if(line[0] == '\0')
+		if (line[0] == '\0')
 		{
 			free(line);
-			return(NULL);
+			return (NULL);
 		}
 	}
 	return (line);
@@ -39,7 +51,7 @@ char	*readfile(char **line, char **save, int fd)
 	while (num)
 	{
 		save[0][num] = '\0';
-		if(!*line)
+		if (!*line)
 			*line = ft_calloc(1, 1);
 		aux_line = copyread(*line, save);
 		free(*line);
@@ -61,9 +73,9 @@ char	*copyread(char *line, char **save)
 	size_t	findbackspace;
 
 	findbackspace = 0;
-	while(save[0][findbackspace] != '\n')
+	while (save[0][findbackspace] != '\n')
 	{
-		if(!save[0][findbackspace])
+		if (!save[0][findbackspace])
 		{
 			cpy = ft_strjoin(line, *save);
 			return (cpy);
@@ -81,12 +93,13 @@ char	*savecpy(char **save)
 {
 	char	*line;
 	char	*aux_save;
+
 	line = NULL;
 	if (ft_strlen(*save, 3))
 	{
 		aux_save = ft_substr(*save, ft_strlen(*save, 2), ft_strlen(*save, 1));
 		free (*save);
-		if(ft_strlen(aux_save, 1) == ft_strlen(aux_save, 3) - 1)
+		if (ft_strlen(aux_save, 1) == ft_strlen(aux_save, 3) - 1)
 		{
 			line = ft_substr(aux_save, 0, ft_strlen(aux_save, 1));
 			*save = NULL;
@@ -98,5 +111,5 @@ char	*savecpy(char **save)
 		}
 		free(aux_save);
 	}
-	return(line);
+	return (line);
 }
