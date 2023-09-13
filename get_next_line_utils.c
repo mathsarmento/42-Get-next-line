@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msarment <msarment@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 18:13:11 by msarment          #+#    #+#             */
+/*   Updated: 2023/09/12 18:19:30 by msarment         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "get_next_line.h"
 
@@ -34,16 +46,18 @@ size_t	ft_strlen(const char *s, int type)
 	size_t	i;
 
 	i = 0;
-	if(type == 2)
+	if(type == 2 || type == 3)
 	{
 		if (s)
 		{
 			while (s[i] != '\0')
 			{
-				if(s[i] == '\n')
-					return (1);
+				if (s[i] == '\n')
+					return (i + 1);
 				i++;
 			}
+			if (type == 3 && s[i] == '\0')
+				return (i + 1);
 		}
 		return (0);
 	}

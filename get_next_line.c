@@ -6,7 +6,7 @@
 /*   By: msarment <msarment@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:40:50 by msarment          #+#    #+#             */
-/*   Updated: 2023/09/12 18:01:35 by msarment         ###   ########.fr       */
+/*   Updated: 2023/09/12 20:59:54 by msarment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,33 +96,42 @@ static char	*copyread(char *line, char **save)
 static char	*savecpy(char **save)
 {
 	size_t	i;
-	size_t	cont;
 	char	*line;
 	char	*aux_save;
 
 	line = NULL;
-	i = 0;
-	cont = 0;
-	if (*save)
-	{
-		aux_save = ft_substr(*save, 0, ft_strlen(*save, 1));
-		free(*save);
+	i = ft_strlen(*save, 3);
+	if (i) // aqui se for apenas um \0 eu vou receber 1 do mesmo jeito e passar 
+	{ // da pra tirar o i apenas usando a função
+		aux_save = ft_substr (*save, i, ft_strlen(*save, 1));
+		free (*save);
 		*save = NULL;
-		while (aux_save[cont] != '\n' && aux_save[cont])
-			cont++;
-		if (!aux_save[cont])
-		{
-			free(aux_save);
-			return (NULL);
-		}
-		cont++;
-		while (aux_save[i + cont] != '\n' && aux_save[i + cont])
-			i++;
-		line = ft_substr(aux_save, cont, i + 1);
-		if (aux_save[i + cont] == '\n')
-			*save = ft_substr(aux_save, i + cont, ft_strlen(aux_save, 1) - i - cont);
+		line = ft_substr(aux_save, 0, ft_strlen(aux_save, 3) - 1);//verificar se é \0 ou \n se for \0 acabou o read se nao tem mais
+		if (ft_strlen(aux_save, 1) > ft_strlen(line, 1))
+			*save = ft_substr (aux_save, 0, ft_strlen(aux_save, 1));
 		free(aux_save);
 	}
 	return(line);
 }
 
+
+	// if (*save)
+	// {
+	// 	aux_save = ft_substr(*save, 0, ft_strlen(*save, 1));
+	// 	free(*save);
+	// 	*save = NULL;
+	// 	while (aux_save[cont] != '\n' && aux_save[cont])
+	// 		cont++;
+	// 	if (!aux_save[cont])
+	// 	{
+	// 		free(aux_save);
+	// 		return (NULL);
+	// 	}
+	// 	cont++;
+	// 	while (aux_save[i + cont] != '\n' && aux_save[i + cont])
+	// 		i++;
+	// 	line = ft_substr(aux_save, cont, i + 1);
+	// 	if (aux_save[i + cont] == '\n')
+	// 		*save = ft_substr(aux_save, i + cont, ft_strlen(aux_save, 1) - i - cont);
+	// 	free(aux_save);
+	// }

@@ -6,7 +6,7 @@
 /*   By: msarment <msarment@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:38:49 by msarment          #+#    #+#             */
-/*   Updated: 2023/09/12 18:00:43 by msarment         ###   ########.fr       */
+/*   Updated: 2023/09/12 20:54:46 by msarment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10000
+#  define BUFFER_SIZE 100
 # endif
 
 # include <unistd.h>

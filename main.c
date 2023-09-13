@@ -36,7 +36,7 @@ int	main(void)
 	int fd = open("teste", O_RDONLY);
 	int i = 0;
 	char *str;
-	while(i < 2)
+	while(i < 4)
 	{
 		str = get_next_line(fd);
 		printf("%s",str);
