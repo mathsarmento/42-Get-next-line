@@ -95,20 +95,26 @@ static char	*copyread(char *line, char **save)
 
 static char	*savecpy(char **save)
 {
-	size_t	i;
 	char	*line;
 	char	*aux_save;
-
+	// O SAVE JA VEM COM UM \N QUE JA FOI COPIADO
+	//existem duas situações -> ou o save tem \0 (significa que acabou o save)
+	// ou -> tem \n e ainda tem mais coisa no save
 	line = NULL;
-	i = ft_strlen(*save, 3);
-	if (i) // aqui se for apenas um \0 eu vou receber 1 do mesmo jeito e passar 
-	{ // da pra tirar o i apenas usando a função
-		aux_save = ft_substr (*save, i, ft_strlen(*save, 1));
+	if (ft_strlen(*save, 3)) // aqui não entra se não ter save
+	{
+		aux_save = ft_substr(*save, ft_strlen(*save, 2), ft_strlen(*save, 1));
 		free (*save);
-		*save = NULL;
-		line = ft_substr(aux_save, 0, ft_strlen(aux_save, 3) - 1);//verificar se é \0 ou \n se for \0 acabou o read se nao tem mais
-		if (ft_strlen(aux_save, 1) > ft_strlen(line, 1))
-			*save = ft_substr (aux_save, 0, ft_strlen(aux_save, 1));
+		if(ft_strlen(aux_save, 1) == ft_strlen(aux_save, 3) - 1) // final save
+		{
+			line = ft_substr(aux_save, 0, ft_strlen(aux_save, 1));
+			*save = NULL;
+		}
+		else if (ft_strlen(aux_save, 1) > ft_strlen(aux_save, 3) - 1) // existe um \n
+		{
+			line = ft_substr(aux_save, 0, ft_strlen(aux_save, 3));
+			*save = ft_substr(aux_save, 0, ft_strlen(aux_save, 1));
+		}
 		free(aux_save);
 	}
 	return(line);
